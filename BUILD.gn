@@ -482,10 +482,12 @@ if (icu_use_data_file) {
       if (is_mac || is_ios) {
         args += [ "--mac" ]
       } else if (is_win) {
-        if (host_os == "linux") {
-          args += [ "--win-on-linux" ]
+        if (target_cpu == "arm64" || target_cpu == "x64") {
+          args += [ "--win64" ]
+        } else if (target_cpu == "arm" || target_cpu == "x86") {
+          args += [ "--win32" ]
         } else {
-          args += [ "--win" ]
+          assert(false)
         }
       }
     }
